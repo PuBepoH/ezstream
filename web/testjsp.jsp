@@ -5,6 +5,6 @@
     <title>Hello World!</title>
 </head>
 <body>
-    <h1>Data: ${data}</h1>
+    <h1>Data:  ${data}</h1>
 </body>
 </html>
