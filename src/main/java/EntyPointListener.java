@@ -9,6 +9,7 @@ public class EntyPointListener implements ServletContextListener {
     }
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-
+        EZStreamCore core = EZStreamCore.getInstance();
+        core.start();
     }
 }

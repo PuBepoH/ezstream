@@ -1,4 +1,4 @@
-public class EZStreamCore {
+public class EZStreamCore extends Thread{
     private static EZStreamCore instance;
     private double count=0;
 
@@ -11,11 +11,18 @@ public class EZStreamCore {
     }
 
     public void plusadin() {
-        count=count+1;
+        count=count+1000;
 
-    };
+    }
 
     public double getCount(){
         return count;
+    }
+
+    public void run(){
+        while (true) {
+            try{Thread.sleep(1000);} catch (Exception e) {}
+            count=count+1;
+        }
     }
 }
