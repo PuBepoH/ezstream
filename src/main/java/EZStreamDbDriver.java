@@ -12,15 +12,9 @@ public class EZStreamDbDriver extends Thread {
     private void connect() throws ClassNotFoundException, SQLException{
         conn=null;
         try {
-            boolean initialize = SQLiteJDBCLoader.initialize();
+            Class.forName("org.sqlite.JDBC");
+            conn = DriverManager.getConnection("jdbc:sqlite:/testBase.sqlite3");
         } catch(Exception e){core.exceptionLog.add(e.getMessage());};
-        SQLiteDataSource dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:testbase.sqlite3");
-        try {
-            conn = dataSource.getConnection();
-        } catch(Exception e) {core.exceptionLog.add(e.getMessage());}
-
-
     }
 
     private void tryConnect(){
@@ -47,7 +41,7 @@ public class EZStreamDbDriver extends Thread {
         core = EZStreamCore.getInstance();
         try {
             core.exceptionLog.add("TRY....");
-            //connect();
+            connect();
             //tryConnect();
         } catch (Exception e) {
             core.exceptionLog.add(e.getMessage());
@@ -61,7 +55,6 @@ public class EZStreamDbDriver extends Thread {
                 try {
                     Thread.sleep(1000);
                 } catch(InterruptedException e){};
-                tryConnect();
             } else {
 
             }
