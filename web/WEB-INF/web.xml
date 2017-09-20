@@ -12,8 +12,17 @@
         <servlet-name>testServlet</servlet-name>
         <servlet-class>TestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowExceptionsServlet</servlet-name>
+        <servlet-class>ShowExceptionsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>testServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowExceptionsServlet</servlet-name>
+        <url-pattern>/log/</url-pattern>
+    </servlet-mapping>
+
 </web-app>

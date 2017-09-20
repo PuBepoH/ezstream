@@ -8,15 +8,19 @@ public class EZStreamCore extends Thread{
 
     private double count=0;
     private LinkedList<EZStreamDbQuery> queryQueue = new LinkedList<EZStreamDbQuery>();
-    private Mutex queryQueueMutex = new Mutex();
+    private EZStreamDbDriver dbOperator;
+    public LinkedList<String> exceptionLog = new LinkedList<String>();
 
     public static synchronized EZStreamCore getInstance() {
         if (instance == null) {
             instance = new EZStreamCore();
             instance.count=Math.random();
+            instance.dbOperator = new EZStreamDbDriver();
+            instance.dbOperator.start();
         }
         return instance;
     }
+
 
     public void plusadin() {
         count=count+1000;
@@ -34,29 +38,16 @@ public class EZStreamCore extends Thread{
         }
     }
 
-    public void addQueue(EZStreamDbQuery query){
-        try {
-            queryQueueMutex.acquire();
-            try {
-                queryQueue.addLast(query);
-            } finally {
-                queryQueueMutex.release();
-            }
-        }  catch (InterruptedException ie) {};
+    public synchronized void addQueue(EZStreamDbQuery query){
+        queryQueue.addLast(query);
+        dbOperator.interrupt();
     };
 
-    public EZStreamDbQuery popQueue() {
+    public synchronized EZStreamDbQuery popQueue() {
         EZStreamDbQuery answer = null;
-        try {
-            queryQueueMutex.acquire();
-            try {
-                if (queryQueue.size()!=0) {
-                    answer = queryQueue.removeFirst();
-                } else answer = null;
-            } finally {
-                queryQueueMutex.release();
-            }
-        }  catch (InterruptedException ie) {};
+        if (queryQueue.size()!=0) {
+            answer = queryQueue.removeFirst();
+        } else answer = null;
         return answer;
     };
 }

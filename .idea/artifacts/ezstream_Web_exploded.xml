@@ -8,6 +8,7 @@
           <element id="module-output" name="ezstream" />
         </element>
       </element>
+      <element id="file-copy" path="$PROJECT_DIR$/testBase.sqlite3" />
     </root>
   </artifact>
 </component>
