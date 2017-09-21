@@ -37,7 +37,19 @@ public class EZStreamDbDriver extends Thread {
                     Thread.sleep(1000);
                 } catch(InterruptedException e){};
             } else {
+                try {
+                    statement = conn.createStatement();
+                    try {
+                        resultSet = statement.executeQuery(query.createSQL());
+                    } catch(Exception ee) {
+                        core.exceptionLog.add(ee.getMessage());
+                        resultSet = null;
+                    }
+                    query.callBack(resultSet);
 
+                } catch(Exception e) {
+                    core.exceptionLog.add(e.getMessage());
+                }
             }
         }
     }
