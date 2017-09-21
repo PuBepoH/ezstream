@@ -13,36 +13,17 @@ public class EZStreamDbDriver extends Thread {
         conn=null;
         try {
             Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:/testBase.sqlite3");
+            conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nuzhdin\\IdeaProjects\\ezstream\\testBase.sqlite3");
         } catch(Exception e){core.exceptionLog.add(e.getMessage());};
     }
 
-    private void tryConnect(){
-        try{
-            statement=conn.createStatement();
-        } catch(Exception e) {
-            core.exceptionLog.add(e.getMessage());
-        }
-        try {
-            resultSet = statement.executeQuery("Select * from tstTable");
-            int i =0;
-            while (resultSet.next()) {
-                i++;
-                core.exceptionLog.add("out: "+resultSet.getMetaData().getColumnLabel(i));
-            }
-        } catch(Exception e){
-            core.exceptionLog.add(e.getMessage());
-        };
-    }
 
     public void run() {
         EZStreamDbQuery query;
 
         core = EZStreamCore.getInstance();
         try {
-            core.exceptionLog.add("TRY....");
             connect();
-            //tryConnect();
         } catch (Exception e) {
             core.exceptionLog.add(e.getMessage());
         }
