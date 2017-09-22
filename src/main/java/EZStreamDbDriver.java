@@ -1,6 +1,3 @@
-import org.sqlite.SQLiteDataSource;
-import org.sqlite.SQLiteJDBCLoader;
-
 import java.sql.*;
 
 public class EZStreamDbDriver extends Thread {

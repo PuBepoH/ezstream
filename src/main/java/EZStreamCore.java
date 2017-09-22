@@ -1,9 +1,6 @@
-import com.sun.corba.se.impl.orbutil.concurrent.Mutex;
-
-import java.awt.*;
 import java.util.LinkedList;
 
-public class EZStreamCore extends Thread{
+public class EZStreamCore{
     private static EZStreamCore instance;
 
     private double count=0;
@@ -19,23 +16,6 @@ public class EZStreamCore extends Thread{
             instance.dbOperator.start();
         }
         return instance;
-    }
-
-
-    public void plusadin() {
-        count=count+1000;
-
-    }
-
-    public double getCount(){
-        return count;
-    }
-
-    public void run(){
-        while (true) {
-            try{Thread.sleep(1000);} catch (Exception e) {}
-            count=count+1;
-        }
     }
 
     public synchronized void addQueue(EZStreamDbQuery query){
