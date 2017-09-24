@@ -5,7 +5,7 @@
     <title>Hello World!</title>
 </head>
 <body>
-    <h1>RESULT:<h1/>
+    <h1>RESULT    :<h1/>
     <h1>${answer}</h1>
     <br />
     Usage:
